@@ -1,5 +1,8 @@
 #include <iostream>
 #include <string>
+#include <cstdlib>
+#include <time.h>
+#include <cmath>
 using namespace std;
 
 template <class T>
@@ -197,14 +200,33 @@ public:
 
 int main()
 {
+	srand(time(0));
+	int size = 100;
+	int *arr = new int[size];
+	for (int i = 0; i < size; ++i) {
+		arr[i] = rand() % 100;
+	}
 	List<int> list;
-	list.PushFront(1);
-	list.PushFront(2);
-	list.PushFront(3);
-	list.PushFront(4);
-	list.PushFront(5);
-	list.PushFront(6);
-	list.Move(0, 10);
+	for (int i = 0; i < size; ++i) {
+		int num = arr[i];
+		double f = sqrt(num);
+		if (f - (int)f == 0) {
+			list.PushFront(num);
+		}
+	}
+	int list_size = list.GetSize();
+	for (int i = 0; i < list_size; ++i) {
+		int num = list.Get(i);
+		for (int j = 0; j < list_size; ++j) {
+			if (i != j) {
+				int num2 = list.Get(j);
+				if (num == num2) {
+					list.Delete(j);
+					list_size = list.GetSize();
+				}
+			}
+		}
+	}
 	list.Print();
 	system("pause");
 }
